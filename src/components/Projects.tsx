@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronUp, Mail, Quote, Trophy, Target, Briefcase, GraduationCap, Palette, ShieldCheck, Award, CheckCircle2, ArrowRight, Phone, MapPin, Linkedin, Clock } from 'lucide-react';
+import { ChevronUp, Mail, Quote, Target, Briefcase, GraduationCap, Palette, ShieldCheck, Award, CheckCircle2, ArrowRight, Phone, MapPin, Linkedin, Clock } from 'lucide-react';
 
 const achievements = [
   { value: "98%", label: "On-Time Delivery", desc: "Maintained through proactive risk assessments" },
@@ -178,7 +178,7 @@ export default function Projects() {
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <p>
-                  Having successfully managed end to end supply chain operations including procurement, inventory control, warehouse management, and transport coordination, I bring resilience, adaptability, and innovative problem solving skills essential for navigating today's complex global logistics networks. 
+                  Having successfully managed end to end supply chain operations including procurement, inventory control, warehouse management, and transport coordination, I bring resilience, adaptability, and innovative problem solving skills essential for navigating today&apos;s complex global logistics networks. 
                 </p>
                 <p>
                   My experience in risk mitigation, especially during the COVID 19 pandemic, showcases my ability to maintain operational continuity under pressure while ensuring regulatory compliance and safety standards.
@@ -337,7 +337,7 @@ export default function Projects() {
                  <Palette className="text-purple-400"/> Graphic Design Hobbyist
                </h3>
                <p className="text-white/70 font-light leading-relaxed relative z-10">
-                 Beyond supply chain, I have a deep passion for Graphic Design. I've completed various creative projects that hone my eye for detail, visual communication, and creative problem solving. This unique mix of analytical and creative thinking allows me to present data and strategies in highly visual, compelling ways.
+                 Beyond supply chain, I have a deep passion for Graphic Design. I&apos;ve completed various creative projects that hone my eye for detail, visual communication, and creative problem solving. This unique mix of analytical and creative thinking allows me to present data and strategies in highly visual, compelling ways.
                </p>
             </motion.div>
 
@@ -415,7 +415,7 @@ export default function Projects() {
               Ready to Transform Your Operations?
             </h2>
             <p className="text-xl text-white/70 font-light mb-12">
-              Let's discuss how I can help optimize your supply chain and enhance your brand presence.
+              Let&apos;s discuss how I can help optimize your supply chain and enhance your brand presence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#contact" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors flex items-center justify-center gap-2">
@@ -439,7 +439,7 @@ export default function Projects() {
               Get In Touch
             </h2>
             <p className="text-lg text-white/60 font-light mb-12 leading-relaxed">
-              Ready to optimize your operations or enhance your brand? Let's discuss how I can help you achieve your goals. I'm always excited to discuss new opportunities and collaborate on projects that drive meaningful impact.
+              Ready to optimize your operations or enhance your brand? Let&apos;s discuss how I can help you achieve your goals. I&apos;m always excited to discuss new opportunities and collaborate on projects that drive meaningful impact.
             </p>
 
             <div className="space-y-8">
@@ -525,7 +525,7 @@ export default function Projects() {
                 <label className="block text-white/50 text-sm font-semibold mb-2">Subject *</label>
                 <input 
                   type="text" 
-                  placeholder="What's this about?" 
+                  placeholder="What&apos;s this about?" 
                   className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-blue-500 transition-colors"
                 />
               </div>
@@ -555,7 +555,7 @@ export default function Projects() {
           {references.map((ref, i) => (
             <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/10 relative hover:bg-white/10 transition-colors duration-300">
               <Quote className="absolute top-6 right-6 text-white/10 w-12 h-12" />
-              <p className="text-white/80 font-light italic text-lg leading-relaxed mb-8 relative z-10">"{ref.quote}"</p>
+              <p className="text-white/80 font-light italic text-lg leading-relaxed mb-8 relative z-10">&quot;{ref.quote}&quot;</p>
               <div>
                 <h4 className="font-bold text-white/90">{ref.name}</h4>
                 <p className="text-white/50 text-sm">{ref.role}</p>
