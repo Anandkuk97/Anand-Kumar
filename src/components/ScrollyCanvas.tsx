@@ -7,6 +7,28 @@ const FRAME_COUNT = 192;
 const currentFrame = (index: number) =>
   `/sequence/frame_${index.toString().padStart(3, '0')}_delay-0.041s.png`;
 
+const drawImageToCanvas = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const canvasRatio = canvas.width / canvas.height;
+  const imgRatio = img.width / img.height;
+  
+  let drawWidth, drawHeight, offsetX, offsetY;
+
+  if (canvasRatio > imgRatio) {
+    drawWidth = canvas.width;
+    drawHeight = canvas.width / imgRatio;
+    offsetX = 0;
+    offsetY = (canvas.height - drawHeight) / 2;
+  } else {
+    drawWidth = canvas.height * imgRatio;
+    drawHeight = canvas.height;
+    offsetX = (canvas.width - drawWidth) / 2;
+    offsetY = 0;
+  }
+
+  ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+};
+
 export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,37 +64,12 @@ export default function ScrollyCanvas() {
 
   useMotionValueEvent(frameIndex, 'change', (latest) => {
     if (!canvasRef.current || images.length !== FRAME_COUNT) return;
-
     const ctx = canvasRef.current.getContext('2d');
     if (!ctx) return;
-
     const img = images[Math.round(latest)];
     if (!img) return;
-
-    // Draw with object-fit: cover logic
-    const canvas = canvasRef.current;
     
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const canvasRatio = canvas.width / canvas.height;
-    const imgRatio = img.width / img.height;
-    
-    let drawWidth, drawHeight, offsetX, offsetY;
-
-    if (canvasRatio > imgRatio) {
-      drawWidth = canvas.width;
-      drawHeight = canvas.width / imgRatio;
-      offsetX = 0;
-      offsetY = (canvas.height - drawHeight) / 2;
-    } else {
-      drawWidth = canvas.height * imgRatio;
-      drawHeight = canvas.height;
-      offsetX = (canvas.width - drawWidth) / 2;
-      offsetY = 0;
-    }
-
-    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    drawImageToCanvas(ctx, canvasRef.current, img);
   });
 
   // Handle Resize
@@ -82,9 +79,15 @@ export default function ScrollyCanvas() {
       canvasRef.current.width = window.innerWidth;
       canvasRef.current.height = window.innerHeight;
       
-      // Trigger a re-draw on resize if images are ready
+      // Trigger a re-draw on resize without mutating frameIndex
       if (images.length === FRAME_COUNT) {
-        frameIndex.set(frameIndex.get() + 0.0001); // trigger motion value change to redraw
+        const latest = frameIndex.get();
+        const ctx = canvasRef.current.getContext('2d');
+        if (!ctx) return;
+        const img = images[Math.round(latest)];
+        if (!img) return;
+        
+        drawImageToCanvas(ctx, canvasRef.current, img);
       }
     };
     
