@@ -5,15 +5,15 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Creative Developer',
-  description: 'High-end specialized portfolio with scroll-linked canvas animations',
+  title: "Anand Kumar | Business Consultant & Supply Chain Strategist",
+  description: "Portfolio of Anand Kumar, specializing in Business Consulting, Supply Chain Optimization, and Operations Management.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} bg-[#121212] text-white antialiased`}>
