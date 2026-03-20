@@ -52,7 +52,7 @@ export default function Overlay() {
           className="absolute right-8 md:right-24 inset-y-0 flex flex-col justify-center text-right max-w-2xl px-4"
         >
           <h2 className="text-4xl md:text-6xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
-            Now I’m building the strategic toolkit <br/><span className="text-white/70 font-light">to do it at scale. | MBA — University of Essex</span>
+            Now I’m building the strategic toolkit <br/><span className="text-white/70 font-light">to do it at scale. | MBA - University of Essex</span>
           </h2>
         </motion.div>
 
@@ -81,8 +81,8 @@ export default function Overlay() {
             <button onClick={() => window.scrollTo({ top: window.innerHeight * 5, behavior: 'smooth'})} className="px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors flex items-center justify-center gap-2 text-sm uppercase tracking-wider block">
               View My Work <ArrowRight size={16} />
             </button>
-            <a href="#" className="px-6 py-3 rounded-full bg-transparent border border-white text-white font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
-              Download CV <ArrowRight size={16} />
+            <a href="https://www.linkedin.com/in/anand-kumar-067662190/" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full bg-transparent border border-white text-white font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+              Go to LinkedIn <ArrowRight size={16} />
             </a>
           </motion.div>
         </div>

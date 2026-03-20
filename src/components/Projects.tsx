@@ -18,15 +18,13 @@ const featuredProjects = [
   {
     title: "Eliminating €1.2M in Manufacturing Waste",
     tags: ["Lean Six Sigma", "DMAIC", "Rubber & Plastics Manufacturing"],
-    desc: "A 90-day waste audit revealed €1.2M in hidden costs across injection moulding scrap, inventory waste, and fulfilment delays. Three parallel DMAIC projects over 3+ years transformed plant operations.",
+    desc: "A comprehensive 90-day waste audit revealed €1.2M in hidden costs across injection moulding scrap, inventory waste, and fulfilment delays. By spearheading three parallel DMAIC projects over 3+ years, the entire plant operations were transformed. Rejection rates plummeted, on-time delivery skyrocketed, and the stigma of inefficiency was permanently erased.",
     stats: "Rejection rate 8.2% → 3.1% | On-time delivery 78% → 96% | Sigma 2.9 → 3.9",
-    learned: "People do not resist change — they resist being changed.",
-    cta1: "Read Full Case Study (PDF download)",
-    cta2: "View Summary →",
+    learned: "People do not resist change - they resist being changed.",
     isFlagship: true
   },
   {
-    title: "NutriFlow — Strategic Marketing Plan",
+    title: "NutriFlow - Strategic Marketing Plan",
     tags: ["MBA Coursework (BE880)", "Strategic Marketing", "UK Market Entry"],
     desc: "Developed a full go-to-market strategy for a premium wellness subscription service. Applied PESTEL, Blue Ocean ERRC, STP segmentation, 7Ps, and an integrated marketing communications plan.",
     learned: "Built the entire strategy from scratch for a market I had no prior experience in. Forced me to think beyond operations into customer psychology and brand positioning.",
@@ -42,11 +40,11 @@ const featuredProjects = [
     isFlagship: false
   },
   {
-    title: "ShieldOps — Security Guard Management SaaS",
+    title: "ShieldOps - Security Guard Management SaaS",
     tags: ["Entrepreneurship", "SaaS Product Design", "Pilot Stage"],
     desc: "Designing a mobile-first platform for security companies to manage guard deployments, check-ins, and compliance. Currently piloting with a UK-based security firm.",
     learned: "My first time building a product from zero. Learning to separate the MVP from the vision, and negotiating IP and equity with a pilot partner, taught me more about business than any textbook.",
-    cta2: "In Development — Updates Coming Soon",
+    cta2: "In Development - Updates Coming Soon",
     isFlagship: false
   },
   {
@@ -64,21 +62,21 @@ const journey = [
     type: "education",
     title: "MBA",
     org: "University of Essex, UK",
-    date: "Oct 2025 – Sep 2026",
+    date: "Oct 2025 - Sep 2026",
     details: "Dean’s Award scholarship (50%). Focus: Operations, Supply Chain Management, Digital Transformation, and ESG."
   },
   {
     type: "work",
     title: "Operations & Supply Chain Manager",
     org: "SS Industries",
-    date: "Jun 2020 – Sep 2025",
+    date: "Jun 2020 - Sep 2025",
     details: "Led €1.2M waste elimination programme. Cut fulfilment time 15%, improved inventory accuracy 20%. Managed 50+ vendor relationships. Coached 50+ staff in Lean Six Sigma."
   },
   {
     type: "work",
     title: "Logistics & Inventory Specialist",
     org: "SS Industries",
-    date: "Dec 2018 – May 2020",
+    date: "Dec 2018 - May 2020",
     details: "Boosted warehouse efficiency 15%. Improved on-time delivery 12%. Built vendor performance monitoring system reducing late shipments 10%."
   },
   {
@@ -135,7 +133,7 @@ const beyondOps = [
   },
   {
     title: "Chess & Strategic Thinking",
-    desc: "Regular chess player. The pattern recognition and multi-move planning translate directly to how I approach supply chain optimisation — every decision has downstream consequences."
+    desc: "Regular chess player. The pattern recognition and multi-move planning translate directly to how I approach supply chain optimisation - every decision has downstream consequences."
   },
   {
     title: "Entrepreneurship",
@@ -268,14 +266,14 @@ const ProjectCard = ({ project, idx }: { project: { title: string, tags: string[
             
             <div className="flex flex-wrap items-center gap-4">
               {project.cta1 && (
-                <a href="#" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors">
+                <span className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-400">
                    {project.cta1}
-                </a>
+                </span>
               )}
               {project.cta2 && (
-                <a href="#" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors">
+                <span className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-blue-400">
                   {project.cta2}
-                </a>
+                </span>
               )}
             </div>
           </div>
@@ -310,16 +308,16 @@ export default function Projects() {
         
         <div className="space-y-8 text-xl md:text-2xl text-white/70 font-light leading-relaxed">
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0 }}>
-            I grew up in Jharkhand, in a part of India where manufacturing is not glamorous — it is hard, dusty, and unglamorous work. But I was fascinated by it. Not by the machines themselves, but by the systems around them: why did one shift produce more waste than another? Why did some vendors deliver on time and others never could? Why did the warehouse look like it had been organised by throwing things over a wall?
+            I grew up in Jharkhand, in a part of India where manufacturing is not glamorous - it is hard, dusty, and unglamorous work. But I was fascinated by it. Not by the machines themselves, but by the systems around them: why did one shift produce more waste than another? Why did some vendors deliver on time and others never could? Why did the warehouse look like it had been organised by throwing things over a wall?
           </motion.p>
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15 }}>
-            Those questions led me to my first job at SS Industries, a rubber and plastics manufacturer in Ranchi. I started as a logistics and inventory coordinator — essentially counting stock and chasing deliveries. But I kept asking questions, and I kept finding things that could be done better.
+            Those questions led me to my first job at SS Industries, a rubber and plastics manufacturer in Ranchi. I started as a logistics and inventory coordinator - essentially counting stock and chasing deliveries. But I kept asking questions, and I kept finding things that could be done better.
           </motion.p>
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}>
             Within two years, I was promoted to Operations Manager. Over the next five years, I led a Lean Six Sigma programme that eliminated <HighlightSweep>€1.2 million</HighlightSweep> in annual waste, cut fulfilment time by 15%, and raised inventory accuracy from 83% to 97.4%. I coached 50+ staff in continuous improvement. Two of the injection moulding operators I trained became Kaizen team leads.
           </motion.p>
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.45 }}>
-            The most important thing I learned in those seven years was not a methodology. It was that people do not resist change — they resist being changed. When the team owns the improvement, they protect it. That insight shapes everything I do.
+            The most important thing I learned in those seven years was not a methodology. It was that people do not resist change - they resist being changed. When the team owns the improvement, they protect it. That insight shapes everything I do.
           </motion.p>
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.6 }}>
             Now I’m at the University of Essex completing an MBA, adding strategic finance, digital transformation, and ESG thinking to the operational foundation I built on the shop floor. I am looking for Operations Manager, Business Analyst, or Strategy Consultant roles in the UK where I can bring both the hands-on experience and the strategic perspective.
