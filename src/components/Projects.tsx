@@ -28,7 +28,6 @@ const featuredProjects = [
     tags: ["MBA Coursework (BE880)", "Strategic Marketing", "UK Market Entry"],
     desc: "Developed a full go-to-market strategy for a premium wellness subscription service. Applied PESTEL, Blue Ocean ERRC, STP segmentation, 7Ps, and an integrated marketing communications plan.",
     learned: "Built the entire strategy from scratch for a market I had no prior experience in. Forced me to think beyond operations into customer psychology and brand positioning.",
-    cta2: "View Summary →",
     isFlagship: false
   },
   {
@@ -36,7 +35,6 @@ const featuredProjects = [
     tags: ["MBA Coursework (BE882)", "Financial Strategy", "Data Centre & AI Markets"],
     desc: "Strategic financial analysis of NVIDIA’s expansion into data centre and AI computing. Evaluated capital structure, ROI, competitive threats, and long-term market positioning.",
     learned: "Connecting the dots between a semiconductor company’s financials and the AI revolution. The analysis went through four major iterations before I was satisfied with the depth.",
-    cta2: "View Summary →",
     isFlagship: false
   },
   {
@@ -52,7 +50,6 @@ const featuredProjects = [
     tags: ["MBA Coursework (BE872)", "Critical Essay", "Organisational Behaviour"],
     desc: "A 2,500-word critical essay exploring how unconscious dynamics shape consultant-client relationships, using my own manufacturing experience as a case study through Armstrong’s meaning-making frameworks.",
     learned: "Applying psychoanalytic theory to the resistance I experienced from operators during the standardisation programme at SS Industries. The academic lens gave me language for something I had already lived.",
-    cta2: "Read Essay Summary →",
     isFlagship: false
   }
 ];
