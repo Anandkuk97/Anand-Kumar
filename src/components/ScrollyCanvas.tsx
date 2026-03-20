@@ -103,9 +103,7 @@ export default function ScrollyCanvas() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {images.length < FRAME_COUNT && (
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#121212]">
-            <div className="text-white text-lg tracking-widest animate-pulse font-light">
-              LOADING EXPERIENCES...
-            </div>
+            <div className="w-8 h-8 rounded-full border-t-2 border-r-2 border-white animate-spin"></div>
           </div>
         )}
         <canvas
