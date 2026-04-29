@@ -589,7 +589,7 @@ export default function Projects() {
                 </div>
                 <div>
                   <h4 className="text-white/50 text-sm uppercase tracking-widest font-mono mb-1">Location</h4>
-                  <p className="text-xl font-medium">Colchester / London, UK</p>
+                  <p className="text-xl font-medium">London, UK</p>
                 </div>
               </div>
 
