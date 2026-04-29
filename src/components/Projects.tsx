@@ -1,31 +1,56 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronUp, Mail, Quote, Target, Briefcase, GraduationCap, Palette, ShieldCheck, Award, CheckCircle2, ArrowRight, Phone, MapPin, Linkedin, Clock } from 'lucide-react';
+import { ChevronUp, Mail, Quote, Target, Briefcase, GraduationCap, ShieldCheck, Award, Phone, MapPin, Linkedin, Clock } from 'lucide-react';
+import CountUp from './CountUp';
+import React, { useState, useRef } from 'react';
 
 const achievements = [
-  { value: "98%", label: "On-Time Delivery", desc: "Maintained through proactive risk assessments" },
-  { value: "0", label: "Deviation Audits", desc: "Full HSE compliance in warehouse operations" },
-  { value: "50%", label: "MBA Scholarship", desc: "Dean's Award at University of Essex" },
-  { value: "Award", label: "Appreciation Letter", desc: "Outstanding supply chain continuity during COVID-19" },
+  { value: 1.2, prefix: "€", suffix: "M", label: "Waste Eliminated", decimals: 1, desc: "From a 90-day audit nobody believed was needed, to the biggest cost saving in the plant’s history." },
+  { value: 62, prefix: "", suffix: "%", label: "Defect Rate Reduction", decimals: 0, desc: "Injection moulding rejections dropped from 8.2% to 3.1%. Sigma level: 2.9 → 3.9." },
+  { value: 37, prefix: "", suffix: "%", label: "Faster Fulfilment", decimals: 0, desc: "Order-to-dispatch went from 11.2 days to 7.1 days. 66% of the old process was waiting, not working." },
+  { value: 50, prefix: "", suffix: "+", label: "People Coached", decimals: 0, desc: "Across production, warehousing, quality, and dispatch. Two operators became Kaizen leads." },
+  { value: 96, prefix: "", suffix: "%", label: "On-Time Delivery", decimals: 0, desc: "Up from 78%. Client penalties eliminated entirely in Year 2." },
+  { value: 50, prefix: "", suffix: "%", label: "MBA Scholarship", decimals: 0, desc: "Dean’s Award at the University of Essex. Proof that the academic world values what the shop floor taught me." },
 ];
 
-const competencies = [
-  "Supply Chain Strategy & Optimization",
-  "Warehouse Operations & Layout Design",
-  "Transport Planning & Route Optimization",
-  "Inventory Management & Demand Forecasting",
-  "Procurement & Supplier Relationship Management",
-  "Lean Six Sigma Process Improvement"
-];
-
-const leadershipTech = [
-  "Cross-functional Team Leadership (50+ staff)",
-  "Data Analysis & KPI Management",
-  "Risk Assessment & Mitigation Strategies",
-  "HSE Compliance & Audit Management",
-  "Advanced Excel & Tableau Analytics",
-  "Contract Negotiation & Cost Management"
+const featuredProjects = [
+  {
+    title: "Eliminating €1.2M in Manufacturing Waste",
+    tags: ["Lean Six Sigma", "DMAIC", "Rubber & Plastics Manufacturing"],
+    desc: "A comprehensive 90-day waste audit revealed €1.2M in hidden costs across injection moulding scrap, inventory waste, and fulfilment delays. By spearheading three parallel DMAIC projects over 3+ years, the entire plant operations were transformed. Rejection rates plummeted, on-time delivery skyrocketed, and the stigma of inefficiency was permanently erased.",
+    stats: "Rejection rate 8.2% → 3.1% | On-time delivery 78% → 96% | Sigma 2.9 → 3.9",
+    learned: "People do not resist change; they resist being changed.",
+    isFlagship: true
+  },
+  {
+    title: "NutriFlow: Strategic Marketing Plan",
+    tags: ["MBA Coursework (BE880)", "Strategic Marketing", "UK Market Entry"],
+    desc: "Developed a full go-to-market strategy for a premium wellness subscription service. Applied PESTEL, Blue Ocean ERRC, STP segmentation, 7Ps, and an integrated marketing communications plan.",
+    learned: "Built the entire strategy from scratch for a market I had no prior experience in. Forced me to think beyond operations into customer psychology and brand positioning.",
+    isFlagship: false
+  },
+  {
+    title: "NVIDIA Strategic Expansion Report",
+    tags: ["MBA Coursework (BE882)", "Financial Strategy", "Data Centre & AI Markets"],
+    desc: "Strategic financial analysis of NVIDIA’s expansion into data centre and AI computing. Evaluated capital structure, ROI, competitive threats, and long-term market positioning.",
+    learned: "Connecting the dots between a semiconductor company’s financials and the AI revolution. The analysis went through four major iterations before I was satisfied with the depth.",
+    isFlagship: false
+  },
+  {
+    title: "Supply Chain Optimization & Inventory Control",
+    tags: ["Supply Chain", "Logistics", "Inventory Management"],
+    desc: "Streamlined vendor management and warehouse operations to reduce holding costs by 18%. Implemented dynamic demand forecasting models to optimize safety stock levels and eliminate stockouts.",
+    learned: "Effective supply chain management requires visibility across all tiers of the network.",
+    isFlagship: false
+  },
+  {
+    title: "Data Analytics & Operations Dashboard",
+    tags: ["SQL", "Power BI", "Tableau", "Data Analytics"],
+    desc: "Leveraged SQL to extract and clean manufacturing data, building interactive dashboards in Power BI and Tableau. Enabled real-time tracking of defect rates, waste metrics, and fulfillment speed.",
+    learned: "Data is only as valuable as the decisions it drives; clear visualization bridges the gap between raw numbers and operational action.",
+    isFlagship: false
+  }
 ];
 
 const journey = [
@@ -33,70 +58,83 @@ const journey = [
     type: "education",
     title: "MBA",
     org: "University of Essex, UK",
-    date: "Sep 2026",
-    details: "Expected completion. Focusing on Operations and Supply Chain Management with strategic applications."
+    date: "Oct 2025 to Sep 2026",
+    details: "Dean’s Award scholarship (50%). Focus: Operations, Supply Chain Management, Digital Transformation, and ESG."
   },
   {
     type: "work",
     title: "Operations & Supply Chain Manager",
-    org: "SS Industries, Ranchi",
-    date: "June 2020 | Sep 2025",
-    details: "Led strategic transformation, yielding 10% delivery improvements and 20% efficiency gains. Managed 50+ vendors."
+    org: "SS Industries",
+    date: "Jun 2020 to Sep 2025",
+    details: "Led €1.2M waste elimination programme. Cut fulfilment time 15%, improved inventory accuracy 20%. Managed 50+ vendor relationships. Coached 50+ staff in Lean Six Sigma."
   },
   {
     type: "work",
-    title: "Logistics & Procurement Coordinator",
-    org: "SS Industries, Ranchi",
-    date: "Dec 2018 | May 2020",
-    details: "Delivered 12% cost reductions through vendor analysis. Built dashboards and led agile continuous improvement."
+    title: "Logistics & Inventory Specialist",
+    org: "SS Industries",
+    date: "Dec 2018 to May 2020",
+    details: "Boosted warehouse efficiency 15%. Improved on-time delivery 12%. Built vendor performance monitoring system reducing late shipments 10%."
   },
   {
     type: "education",
     title: "Bachelor of Science",
     org: "RB Roy College, India",
     date: "Nov 2018",
-    details: "Foundation in logical reasoning and mathematical modeling."
+    details: "Foundation in analytical reasoning and quantitative methods."
   }
 ];
 
-const certifications = [
-  "PwC US Management Consulting",
-  "Six Sigma Black Belt",
-  "Project Management Professional (PMP)",
-  "Agile Project Management with JIRA Cloud",
-  "ISO 9001 Auditor"
+const competencies = [
+  "Supply Chain Strategy", "Lean Six Sigma (DMAIC, Kaizen, 5S)", "Warehouse Operations",
+  "Inventory Management", "Vendor Management", "Process Improvement", "Demand Forecasting",
+  "Procurement", "KPI Development", "Data Analytics", "Power BI", "Tableau", "SQL", "Excel (Advanced)",
+  "Cross-Functional Leadership", "Stakeholder Management", "Cost Reduction", "Risk Mitigation"
 ];
 
-const services = [
+const certifications = [
+  "Six Sigma Black Belt",
+  "PMP",
+  "CAPM",
+  "PwC Management Consulting",
+  "Agile PM with JIRA",
+  "Data Analytics Certification"
+];
+
+const thinkingPrinciples = [
   {
-    title: "Business Operations Consulting",
-    desc: "Strategic solutions for optimizing logistics, procurement, and operational efficiency using Lean Six Sigma and Kaizen principles.",
-    points: ["Process Optimization", "Cost Reduction", "Risk Management", "Performance Analytics"]
+    title: "Measure before you fix.",
+    desc: "Before I change anything, I spend time understanding what’s actually happening. The €1.2M waste figure at SS Industries only existed because I spent 90 days counting and categorising costs that nobody had ever added up. The number created the urgency; the urgency funded the change."
   },
   {
-    title: "Warehouse Optimization",
-    desc: "Streamlining warehouse operations, improving space utilization, and reducing order processing times.",
-    points: ["Layout Design", "Workflow Improvement", "Inventory Management", "Efficiency Metrics"]
+    title: "Small wins first, big transformation later.",
+    desc: "I never launch one grand programme. I launch three small projects that each deliver visible results within 90 days. Credibility from the first win funds the political capital for the second and third."
   },
   {
-    title: "Graphic Design for Business",
-    desc: "Designing logos, marketing materials, and social media graphics using advanced Photoshop skills.",
-    points: ["Logo Design", "Brand Identity", "Marketing Materials", "Social Media Graphics"]
+    title: "Standardisation captures expertise; it does not replace it.",
+    desc: "The most experienced operators at my plant initially resisted process parameter sheets. I reframed it: we are not replacing your knowledge, we are writing it down so that every shift performs like your best shift. Two of those operators later became Kaizen team leads."
   },
   {
-    title: "Content Creation & Poster Making",
-    desc: "Developing engaging content for branding campaigns and creating eye-catching posters for events and marketing initiatives.",
-    points: ["Brand Messaging", "Event Posters", "Promotional Materials", "Digital Advertising"]
+    title: "Sustainability needs systems, not willpower.",
+    desc: "Every improvement I implement includes a control mechanism: daily checklists, weekly audits, monthly KPI reviews. Without the Control phase of DMAIC, improvements drift back within six months."
+  }
+];
+
+const beyondOps = [
+  {
+    title: "Visual Storytelling",
+    desc: "I use graphic design skills (Photoshop, Canva, data visualisation) to turn complex data into compelling presentations. The same eye for detail that catches a process bottleneck also catches a poorly kerned headline."
   },
   {
-    title: "Procurement & Quality Check",
-    desc: "Comprehensive procurement management and quality assurance services to ensure optimal supplier performance and product standards.",
-    points: ["Supplier Evaluation", "Quality Control", "Procurement Strategy", "Compliance Monitoring"]
+    title: "Content & Strategy",
+    desc: "Exploring YouTube strategy and cinematic storytelling as creative outlets. Currently building a content approach for SPF, a security services company I co-manage in Bihar."
   },
   {
-    title: "One-on-One Counselling",
-    desc: "Offering career growth and motivational coaching to individuals and teams for personal and professional development.",
-    points: ["Career Guidance", "Skill Development", "Goal Setting", "Performance Coaching"]
+    title: "Chess & Strategic Thinking",
+    desc: "Regular chess player. The pattern recognition and multi-move planning translate directly to how I approach supply chain optimisation; every decision has downstream consequences."
+  },
+  {
+    title: "Entrepreneurship",
+    desc: "Co-managing Stone Protection Force (SPF), a PSARA-licensed security company. Building ShieldOps, a SaaS platform for the security industry. Always looking for the next problem worth solving."
   }
 ];
 
@@ -108,10 +146,139 @@ const references = [
   },
   {
     name: "Amit Kumar",
-    role: "Senior Hiring Manager, Supply Chain & Logistics Specialist",
-    quote: "Anand's expertise in logistics optimization and his ability to drive measurable improvements make him a valuable asset to any organization seeking operational excellence."
+    role: "Senior Operations Manager",
+    quote: "Anand’s expertise in logistics optimisation and his ability to drive measurable improvements make him a valuable asset to any organisation seeking operational excellence."
   }
 ];
+
+const HighlightSweep = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <span className="relative inline-block whitespace-nowrap">
+      <motion.span
+        initial={{ width: "0%" }}
+        whileInView={{ width: "100%" }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, delay: 0.5, ease: "circOut" }}
+        className="absolute inset-0 bg-blue-500/30 -mx-1 px-1 rounded-md"
+        style={{ zIndex: -1 }}
+      />
+      <strong className="text-white font-semibold relative z-10 px-1">{children}</strong>
+    </span>
+  );
+};
+
+const ProjectCard = ({ project, idx }: { project: { title: string, tags: string[], desc: string, stats?: string, learned: string, cta1?: string, cta2?: string, isFlagship: boolean }, idx: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [glareX, setGlareX] = useState(50);
+  const [glareY, setGlareY] = useState(50);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Reverse axes for expected 3D effect
+    const rotateXValue = ((y - centerY) / centerY) * -8;
+    const rotateYValue = ((x - centerX) / centerX) * 8;
+    
+    setRotateX(rotateXValue);
+    setRotateY(rotateYValue);
+    
+    setGlareX((x / rect.width) * 100);
+    setGlareY((y / rect.height) * 100);
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setRotateX(0);
+    setRotateY(0);
+    setGlareX(50);
+    setGlareY(50);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: 0.2 + (idx % 3) * 0.2 }}
+      className={`${project.isFlagship ? 'md:col-span-2 lg:col-span-2 h-full' : 'h-full'}`}
+      style={{ perspective: 1000 }}
+    >
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        animate={{
+          rotateX: isHovered ? rotateX : 0,
+          rotateY: isHovered ? rotateY : 0,
+          boxShadow: isHovered ? '0 12px 40px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.2)',
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        className="relative group p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col h-full overflow-hidden"
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        <div 
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.08) 0%, transparent 60%)`,
+            opacity: isHovered ? 1 : 0
+          }}
+        />
+
+        <div className="relative z-10 flex flex-col h-full transform-gpu" style={{ transform: isHovered ? 'translateZ(30px)' : 'translateZ(0px)', transition: 'transform 0.3s ease-out' }}>
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white/90 tracking-tight">{project.title}</h3>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tags.map((tag: string, i: number) => (
+              <span key={i} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          <p className="text-white/70 font-light mb-6 leading-relaxed">
+            {project.desc}
+          </p>
+          
+          {project.stats && (
+            <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium">
+              {project.stats}
+            </div>
+          )}
+
+          <div className="mt-auto pt-6 border-t border-white/10">
+            <h4 className="text-sm font-semibold text-white/50 uppercase tracking-widest mb-2">What Made It Interesting</h4>
+            <p className="text-white/60 font-light text-sm italic leading-relaxed mb-6">
+              &quot;{project.learned}&quot;
+            </p>
+            
+            <div className="flex flex-wrap items-center gap-4">
+              {project.cta1 && (
+                <span className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-400">
+                   {project.cta1}
+                </span>
+              )}
+              {project.cta2 && (
+                <span className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-blue-400">
+                  {project.cta2}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default function Projects() {
   const scrollToTop = () => {
@@ -121,105 +288,112 @@ export default function Projects() {
   return (
     <div className="relative z-20 bg-gradient-to-b from-[#121212] via-slate-900/40 to-[#050505] flex flex-col pt-32 pb-16 overflow-hidden">
       
-      {/* 1. About / Career Objective */}
-      <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48 relative">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none" />
+      {/* 1. About / The Story */}
+      <section className="px-6 md:px-24 max-w-4xl mx-auto w-full mb-48 relative">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none -z-10" />
         
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="space-y-16 relative z-10"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="mb-16"
         >
-          <div className="flex flex-col md:flex-row gap-8 items-start md:items-end justify-between border-b border-white/10 pb-12">
-            <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-              About Me.
-            </h2>
-            <p className="text-xl md:text-3xl font-light text-white/50 max-w-lg leading-tight">
-              Targeting Business Consulting, Supply Chain, & Logistics Management.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-white/70 font-light text-lg leading-relaxed">
-            <motion.div 
-              whileHover={{ y: -5 }} 
-              className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
-            >
-              <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-4">
-                <span className="w-8 h-px bg-blue-500 block"></span>
-                Strategic Positioning
-              </h3>
-              <p>
-                As I advance my career with an MBA from the University of Essex (starting October 2025), I am strategically positioned to leverage my 6+ years of proven expertise in supply chain management, logistics optimization, transport planning, and warehouse operations to drive transformational change in forward-thinking organizations.
-              </p>
-            </motion.div>
-
-            <motion.div 
-              whileHover={{ y: -5 }} 
-              className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
-            >
-              <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-4">
-                <span className="w-8 h-px bg-emerald-500 block"></span>
-                Why Employers Choose Me
-              </h3>
-              <p>
-                My unique combination of hands on operational excellence, Lean Six Sigma methodologies, and advanced business education makes me an ideal candidate for organizations seeking data driven leaders. My track record of delivering measurable results (20% efficiency improvements, 98% on time delivery rates, and 12% cost reductions) demonstrates my ability to thrive in demanding environments.
-              </p>
-            </motion.div>
-
-            <motion.div 
-              whileHover={{ y: -5 }} 
-              className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 md:col-span-2"
-            >
-              <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-4">
-                <span className="w-8 h-px bg-purple-500 block"></span>
-                Comprehensive Supply Chain Excellence
-              </h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <p>
-                  Having successfully managed end to end supply chain operations including procurement, inventory control, warehouse management, and transport coordination, I bring resilience, adaptability, and innovative problem solving skills essential for navigating today&apos;s complex global logistics networks. 
-                </p>
-                <p>
-                  My experience in risk mitigation, especially during the COVID 19 pandemic, showcases my ability to maintain operational continuity under pressure while ensuring regulatory compliance and safety standards.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+          <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+            The Story.
+          </h2>
         </motion.div>
+        
+        <div className="space-y-8 text-xl md:text-2xl text-white/70 font-light leading-relaxed">
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0 }}>
+            My journey in operations began with a fascination for systems: why did one shift produce more waste than another? Why did some vendors deliver on time while others struggled? Why was warehouse organization often an afterthought?
+          </motion.p>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15 }}>
+            These questions drove my work at SS Industries, a rubber and plastics manufacturer. Starting as a logistics and inventory coordinator, I focused on counting stock, optimizing deliveries, and identifying areas for process improvement.
+          </motion.p>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}>
+            Within two years, I was promoted to Operations Manager. Over the next five years, I led a Lean Six Sigma programme that eliminated <HighlightSweep>€1.2 million</HighlightSweep> in annual waste, cut fulfilment time by 15%, and raised inventory accuracy from 83% to 97.4%. I coached 50+ staff in continuous improvement. Two of the injection moulding operators I trained became Kaizen team leads.
+          </motion.p>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.45 }}>
+            The most important thing I learned in those seven years was not a methodology. It was that people do not resist change; they resist being changed. When the team owns the improvement, they protect it. That insight shapes everything I do.
+          </motion.p>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.6 }}>
+            Now, alongside completing my MBA at the University of Essex, I have earned a Data Analytics Certification. By combining advanced operational expertise with tools like SQL, Power BI, and Tableau, I translate complex data into strategic execution. I am targeting Operations Manager, Supply Chain, and Data Analytics roles where I can drive scalable impact.
+          </motion.p>
+        </div>
       </section>
 
-      {/* 2. Key Achievements Counters */}
+      {/* 2. Impact in Numbers */}
       <section className="px-6 md:px-24 w-full mb-48 bg-white/5 py-24 border-y border-white/10">
         <div className="max-w-7xl mx-auto">
-          <motion.h2 
+          <motion.div 
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
-             className="text-3xl md:text-5xl font-bold mb-16 text-center text-white/90"
+             className="mb-16"
           >
-            Key Achievements
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 className="text-3xl md:text-5xl font-bold text-white/90">
+              Impact in Numbers.
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {achievements.map((item, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="flex flex-col items-center text-center p-8 rounded-3xl bg-black/20 hover:bg-black/40 transition-colors border border-white/5"
+                className="flex flex-col text-left p-8 rounded-3xl bg-black/20 hover:bg-black/40 transition-colors border border-white/5"
               >
-                <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/30 mb-4">{item.value}</span>
-                <h3 className="text-xl font-semibold text-white/90 mb-2">{item.label}</h3>
-                <p className="text-sm text-white/50 font-light">{item.desc}</p>
+                <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/30 mb-4 tracking-tighter">
+                  <CountUp value={item.value} duration={2} prefix={item.prefix} suffix={item.suffix} decimals={item.decimals} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">{item.label}</h3>
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 2.3 + idx * 0.1, duration: 0.5 }} // delay after counter finishes
+                  className="text-sm text-white/60 font-light leading-relaxed border-t border-white/10 pt-4"
+                >
+                  {item.desc}
+                </motion.p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. Professional Journey (Vertical) */}
+      {/* 3. Featured Projects */}
+      <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48">
+        <div className="mb-16">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-bold mb-4 tracking-tighter"
+          >
+            Selected Work.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-white/50 font-light"
+          >
+            Case studies, MBA projects, and things I’m building.
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {featuredProjects.map((project, idx) => (
+            <ProjectCard key={idx} project={project} idx={idx} />
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Professional Journey (Vertical Timeline) */}
       <section className="px-6 md:px-24 mb-48 max-w-7xl mx-auto w-full">
         <div className="mb-16 text-center">
           <h2 className="text-4xl md:text-7xl font-bold tracking-tighter text-white/90">
@@ -250,7 +424,7 @@ export default function Projects() {
                     {item.type === 'work' ? <Briefcase size={20} className="text-blue-400"/> : <GraduationCap size={20} className="text-purple-400"/>}
                     <span className="font-mono tracking-widest text-sm uppercase">{item.date}</span>
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-bold mb-2 leading-tight">{item.title}</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">{item.title}</h3>
                   <h4 className="text-lg text-blue-400 font-medium mb-6">{item.org}</h4>
                   <p className="text-base text-white/60 font-light leading-relaxed">{item.details}</p>
                 </div>
@@ -260,176 +434,120 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* 4. Skills & Competencies */}
+      {/* 5. Skills & Credentials & How I Think */}
       <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
+          
+          {/* Skills & Credentials */}
           <div>
             <h2 className="flex items-center gap-4 text-3xl font-bold mb-8 text-white/90">
-              <Target className="text-emerald-400" /> Core Competencies
+              <Target className="text-emerald-400" /> Skills & Credentials
             </h2>
-            <ul className="space-y-6">
-              {competencies.map((c, i) => (
-                <motion.li 
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="text-lg text-white/70 font-light border-b border-white/5 pb-4"
-                >
-                  {c}
-                </motion.li>
-              ))}
-            </ul>
+            <div className="mb-12">
+              <h3 className="text-lg text-white/60 mb-6 uppercase tracking-widest font-mono text-sm">Competencies</h3>
+              <div className="flex flex-wrap gap-3">
+                {competencies.map((c, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-light text-white/80"
+                  >
+                    {c}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg text-white/60 mb-6 uppercase tracking-widest font-mono text-sm">Certifications</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {certifications.map((cert, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-4 rounded-xl border border-white/10 bg-gradient-to-r from-blue-500/10 to-transparent flex items-center gap-3"
+                  >
+                    <Award size={20} className="text-blue-400 flex-shrink-0" />
+                    <span className="text-sm font-medium text-white/90">{cert}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
+
+          {/* How I Think */}
           <div>
-             <h2 className="flex items-center gap-4 text-3xl font-bold mb-8 text-white/90">
-              <ShieldCheck className="text-blue-400" /> Leadership & Tech
+            <h2 className="flex items-center gap-4 text-3xl font-bold mb-8 text-white/90">
+              <ShieldCheck className="text-blue-400" /> How I Approach Problems
             </h2>
-            <ul className="space-y-6">
-              {leadershipTech.map((c, i) => (
-                <motion.li 
+            <div className="space-y-8">
+              {thinkingPrinciples.map((p, i) => (
+                <motion.div 
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="text-lg text-white/70 font-light border-b border-white/5 pb-4"
+                  transition={{ delay: i * 0.2 }}
+                  className="relative pl-6 py-2 border-l border-white/10 group overflow-hidden"
                 >
-                  {c}
-                </motion.li>
+                  <motion.div 
+                    initial={{ height: 0 }}
+                    whileInView={{ height: "100%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.2 }}
+                    className="absolute left-[-1px] top-0 w-[2px] bg-blue-500"
+                  />
+                  <h3 className="text-xl font-bold text-white/90 mb-3 group-hover:text-blue-400 transition-colors">
+                    {p.title}
+                  </h3>
+                  <motion.p 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (i * 0.2) + 0.3, duration: 0.5 }}
+                    className="text-white/60 font-light leading-relaxed text-sm"
+                  >
+                    {p.desc}
+                  </motion.p>
+                </motion.div>
               ))}
-            </ul>
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* 5. Additional Stuff: Certifications & Hobbies */}
+      {/* 6. Beyond Operations */}
       <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48">
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            
-            {/* Certifications */}
-            <motion.div 
-               whileHover={{ scale: 1.02 }}
-               className="p-10 rounded-3xl bg-gradient-to-b from-white/10 to-transparent border border-white/10"
-            >
-               <h3 className="flex items-center gap-3 text-2xl font-bold mb-6 text-white/90">
-                 <Award className="text-yellow-400"/> Certifications
-               </h3>
-               <ul className="space-y-4">
-                 {certifications.map((cert, i) => (
-                   <li key={i} className="text-white/70 font-light flex items-start gap-3">
-                     <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50 mt-2 flex-shrink-0" />
-                     {cert}
-                   </li>
-                 ))}
-               </ul>
-            </motion.div>
-
-            {/* Hobbies / Graphic Design */}
-            <motion.div 
-               whileHover={{ scale: 1.02 }}
-               className="p-10 rounded-3xl bg-gradient-to-b from-purple-500/20 to-transparent border border-white/10 relative overflow-hidden group"
-            >
-               {/* Decorative background image */}
-               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-700 mix-blend-overlay" />
-               <h3 className="flex items-center gap-3 text-2xl font-bold mb-6 text-white/90 relative z-10">
-                 <Palette className="text-purple-400"/> Graphic Design Hobbyist
-               </h3>
-               <p className="text-white/70 font-light leading-relaxed relative z-10">
-                 Beyond supply chain, I have a deep passion for Graphic Design. I&apos;ve completed various creative projects that hone my eye for detail, visual communication, and creative problem solving. This unique mix of analytical and creative thinking allows me to present data and strategies in highly visual, compelling ways.
-               </p>
-            </motion.div>
-
+         <div className="mb-16">
+            <h2 className="text-4xl font-bold tracking-tighter text-white/90 mb-4">Beyond the Day Job.</h2>
+         </div>
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {beyondOps.map((item, i) => (
+              <motion.div 
+                 key={i}
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+                 transition={{ delay: i * 0.1 }}
+                 className="p-8 rounded-3xl bg-gradient-to-br from-white/5 to-transparent border border-white/10"
+              >
+                 <h3 className="text-2xl font-bold mb-4 text-white/90">{item.title}</h3>
+                 <p className="text-white/60 font-light leading-relaxed">
+                   {item.desc}
+                 </p>
+              </motion.div>
+            ))}
          </div>
       </section>
 
-      {/* 6. Services Section */}
-      <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-bold mb-4 tracking-tighter"
-          >
-            Services
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-white/50 font-light max-w-2xl mx-auto"
-          >
-            Professional services designed to optimize your operations and enhance your brand presence.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300 flex flex-col h-full"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-white/90 tracking-tight">{service.title}</h3>
-              <p className="text-white/60 font-light mb-8 flex-grow leading-relaxed">
-                {service.desc}
-              </p>
-              
-              <ul className="space-y-3 mb-8">
-                {service.points.map((point, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/70 font-light text-sm">
-                    <CheckCircle2 size={16} className="text-blue-400" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-
-              <a href="#contact" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors mt-auto w-max">
-                Get Started <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 7. Ready To Transform CTA */}
-      <section className="px-6 md:px-24 max-w-7xl mx-auto w-full mb-48">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-blue-900/60 to-purple-900/60 border border-white/10 p-12 md:p-24 text-center flex flex-col items-center justify-center"
-        >
-          {/* Background glow effects */}
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px]" />
-          
-          <div className="relative z-10 max-w-3xl">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tighter text-white">
-              Ready to Transform Your Operations?
-            </h2>
-            <p className="text-xl text-white/70 font-light mb-12">
-              Let&apos;s discuss how I can help optimize your supply chain and enhance your brand presence.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#contact" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors flex items-center justify-center gap-2">
-                Hire Me <ArrowRight size={18} />
-              </a>
-              <a href="#contact" className="px-8 py-4 rounded-full bg-white/5 border border-white/20 text-white font-semibold hover:bg-white/10 transition-colors flex items-center justify-center">
-                Learn More
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* 8. Get in Touch & Contact Form */}
+      {/* 7. Get in Touch & Contact Form */}
       <section id="contact" className="px-6 md:px-24 mb-48 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
           
@@ -548,9 +666,9 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* 9. References & Footer */}
+      {/* 8. References & Footer */}
       <section className="px-6 md:px-24 max-w-7xl mx-auto w-full pb-32">
-        <h2 className="text-4xl font-bold mb-12 text-center text-white/90">Professional References</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white/90">What Others Say.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
           {references.map((ref, i) => (
             <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/10 relative hover:bg-white/10 transition-colors duration-300">
@@ -563,7 +681,6 @@ export default function Projects() {
             </div>
           ))}
         </div>
-        <p className="text-center text-white/40 italic mb-24">References available upon request with full contact details.</p>
 
         {/* Scroll To Top */}
         <div className="flex justify-center border-t border-white/10 pt-16">
