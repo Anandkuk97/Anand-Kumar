@@ -32,7 +32,7 @@ export default function Overlay() {
             Anand Kumar.
           </h1>
           <p className="mt-4 text-xl md:text-2xl text-white/80 font-light tracking-wide uppercase">
-            Operations Manager & Supply Chain Strategist
+            Operations Manager | Supply Chain | Data Analytics
           </p>
         </motion.div>
 
@@ -52,14 +52,14 @@ export default function Overlay() {
           className="absolute right-8 md:right-24 inset-y-0 flex flex-col justify-center text-right max-w-2xl px-4"
         >
           <h2 className="text-4xl md:text-6xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
-            Now I’m building the strategic toolkit <br/><span className="text-white/70 font-light">to do it at scale. | MBA - University of Essex</span>
+            Now I’m building the strategic toolkit <br/><span className="text-white/70 font-light">to do it at scale. | MBA, University of Essex</span>
           </h2>
         </motion.div>
 
         {/* Persistent bottom elements */}
         <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-6 px-4 pointer-events-auto">
           <div className="flex flex-wrap justify-center gap-3">
-            {['Six Sigma Black Belt', 'PMP', 'MBA', '7+ Years Operations'].map((pill, idx) => (
+            {['Six Sigma Black Belt', 'PMP', 'MBA', 'SQL', 'Data Analytics', '7+ Years Operations'].map((pill, idx) => (
               <motion.div
                 key={pill}
                 initial={{ opacity: 0, y: 20 }}
